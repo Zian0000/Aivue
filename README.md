@@ -1,4 +1,4 @@
-<img src="Aivue-logo2.svg" alt="Aivue Logo" width="96" />
+<img src="Aivue-logo2.svg" alt="Aivue Logo" width="64" />
 
 # Aivue
 
