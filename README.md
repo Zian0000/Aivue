@@ -1,4 +1,4 @@
-# AI Usage Menu Bar
+# Aivue
 
 這是一個 macOS 狀態列工具，用來顯示 Codex（ChatGPT 方案）與 Claude 的區段用量、總用量及重置時間。
 
