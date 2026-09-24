@@ -4,3 +4,6 @@
 *.xcodeproj/xcuserdata/
 DerivedData/
 .env
+build-backups/
+build-logs/
+dist/

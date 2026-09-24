@@ -11,7 +11,7 @@
 - 正式 `.app` 與可選 DMG 的本機打包腳本；可透過 `SIGNING_IDENTITY` 簽署。
 - Aivue SVG 已轉為 App `.icns`，安裝包使用新圖示；狀態欄與下拉 UI 尚未改動。
 - Sparkle 2.10.0 已整合；提供 HTTPS appcast 與 EdDSA 公鑰時，安裝版會自動檢查及安裝更新。未設定時不啟動更新器。
-- 提供 Developer ID 簽署、公證與 stapling 腳本，等待帳號與憑證到位。
+- 提供 Developer ID 簽署、公證與 stapling 腳本，日後如改採正式發布可使用；目前不購買付費開發者資格。
 
 ## 打包
 
@@ -23,16 +23,16 @@ APP_VERSION=0.2.0 APP_BUILD_NUMBER=2 UPDATE_FEED_URL=https://example.com/appcast
 NOTARY_PROFILE='aivue-notary' zsh scripts/notarize-app.sh
 ```
 
-輸出位於 `dist/`。未簽署版本只適合本機測試；公開散佈前仍需 Developer ID、Apple 公證及正式更新來源。
+輸出位於 `dist/`。目前以未簽署版本供本機開發與測試；若日後規劃對外發布，需另外決定安裝與發佈方式，並重新驗收。
 
 `UPDATE_FEED_URL` 與 `UPDATE_PUBLIC_ED_KEY` 必須一起設定。上述 `example.com` 僅為範例，不能直接拿來發布。Sparkle 的 EdDSA 私鑰應保存在 Keychain；用 Sparkle 的 `generate_keys` 建立，更新封存檔與 appcast 使用 `generate_appcast` 簽署產生。不要把私鑰加入專案。每次發布必須提高 `APP_BUILD_NUMBER`。
 
-本機目前沒有 Developer ID Application 憑證，使用者也尚未決定更新發布網址。因此目前的 App 和 DMG **尚未完成正式簽署、公證或端到端更新驗收**，Sparkle 會保持停用。`scripts/notarize-app.sh` 只讀取已存入 Keychain 的 notarytool profile，不在命令列或專案內保存 Apple 密碼。
+目前選擇低成本開發路線，暫不購買 Apple Developer Program，也不進行 Developer ID 簽署及公證；更新發布網址尚未決定。因此 App 和 DMG **尚未完成正式發布驗收**，未提供更新設定時 Sparkle 會保持停用。`scripts/notarize-app.sh` 只讀取已存入 Keychain 的 notarytool profile，不在命令列或專案內保存 Apple 密碼。
 
 ## 待人工驗收
 
 - 從 `.app` 啟用開機啟動後，登出／登入，確認只啟動一份。
 - 首次開啟提醒權限、跨越 50% 門檻、App 重啟及重置後再次提醒。
 - 長時間睡眠喚醒、網路斷線／恢復、時區變更。
-- 以正式簽署憑證打包、公證及在另一台 Mac 安裝。
+- 在另一台 Mac 驗收未簽署版本的安裝與啟動體驗；正式簽署與公證目前不列入開發目標。
 - 選定 HTTPS 發布位置，建立 EdDSA 金鑰與 appcast，測試舊版到新版的實際更新。
