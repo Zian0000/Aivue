@@ -4,7 +4,7 @@ set -euo pipefail
 project_dir="${0:A:h:h}"
 build_dir="${BUILD_DIR:-$project_dir/.build}"
 output_dir="$project_dir/dist"
-app_dir="$output_dir/AI Usage Menu Bar.app"
+app_dir="$output_dir/Aivue.app"
 developer_dir="${DEVELOPER_DIR:-/Applications/Xcode.app/Contents/Developer}"
 
 DEVELOPER_DIR="$developer_dir" swift build -c release --disable-sandbox --scratch-path "$build_dir"
@@ -49,8 +49,8 @@ fi
 codesign --verify --deep --strict --verbose=2 "$app_dir"
 
 if [[ "${CREATE_DMG:-0}" == "1" ]]; then
-  hdiutil create -quiet -volname 'AI Usage Menu Bar' -srcfolder "$app_dir" -format UDZO -ov "$output_dir/AIUsageMenuBar.dmg"
-  print "完成：$output_dir/AIUsageMenuBar.dmg"
+  hdiutil create -quiet -volname Aivue -srcfolder "$app_dir" -format UDZO -ov "$output_dir/Aivue.dmg"
+  print "完成：$output_dir/Aivue.dmg"
 fi
 
 print "完成：$app_dir"

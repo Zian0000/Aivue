@@ -4,7 +4,7 @@
 
 ## 下載
 
-目前版本 `0.1.1`：[下載 macOS DMG](https://github.com/Zian0000/Aivue/releases/download/v0.1.1/Aivue-0.1.1.dmg)。支援 macOS 14+ 的 Apple Silicon Mac；此低成本版本未使用 Apple Developer ID 公證。
+目前版本 `0.1.2`：[下載 macOS DMG](https://github.com/Zian0000/Aivue/releases/download/v0.1.2/Aivue-0.1.2.dmg)。支援 macOS 14+ 的 Apple Silicon Mac；此低成本版本未使用 Apple Developer ID 公證。
 
 ## 專案狀態
 

@@ -2,8 +2,8 @@
 set -euo pipefail
 
 project_dir="${0:A:h:h}"
-app_dir="$project_dir/dist/AI Usage Menu Bar.app"
-dmg="$project_dir/dist/AIUsageMenuBar.dmg"
+app_dir="$project_dir/dist/Aivue.app"
+dmg="$project_dir/dist/Aivue.dmg"
 
 if [[ -z "${NOTARY_PROFILE:-}" ]]; then
   print -u2 '請先在 Keychain 設定 notarytool profile，並提供 NOTARY_PROFILE。'

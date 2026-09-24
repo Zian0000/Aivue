@@ -52,9 +52,9 @@ APP_VERSION="$APP_VERSION" APP_BUILD_NUMBER="$APP_BUILD_NUMBER" \
   UPDATE_FEED_URL="$feed_base/appcast.xml" UPDATE_PUBLIC_ED_KEY="$public_key" \
   CREATE_DMG=1 zsh "$project_dir/scripts/package-app.sh"
 
-app_dir="$project_dir/dist/AI Usage Menu Bar.app"
+app_dir="$project_dir/dist/Aivue.app"
 dmg="$project_dir/dist/Aivue-$APP_VERSION.dmg"
-mv "$project_dir/dist/AIUsageMenuBar.dmg" "$dmg"
+mv "$project_dir/dist/Aivue.dmg" "$dmg"
 ditto -c -k --sequesterRsrc --keepParent "$app_dir" "$archive"
 "$sparkle_bin/generate_appcast" --account aivue \
   --download-url-prefix "$feed_base/" --maximum-deltas 0 "$pages_dir"
