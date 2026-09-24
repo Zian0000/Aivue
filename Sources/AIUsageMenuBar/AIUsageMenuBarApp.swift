@@ -3,7 +3,7 @@ import CoreText
 
 private enum AppFonts {
     static func register() {
-        guard let url = Bundle.module.url(forResource: "InterVariable", withExtension: "ttf") else { return }
+        guard let url = AppResourceBundle.current.url(forResource: "InterVariable", withExtension: "ttf") else { return }
         CTFontManagerRegisterFontsForURL(url as CFURL, .process, nil)
     }
 }

@@ -35,7 +35,7 @@ private enum UsageFont {
     }
 
     private static func load(_ name: String) -> NSImage? {
-        guard let url = Bundle.module.url(forResource: name, withExtension: "svg"),
+        guard let url = AppResourceBundle.current.url(forResource: name, withExtension: "svg"),
               let image = NSImage(contentsOf: url) else {
             Diagnostics.log("Logo 資源載入失敗：\(name)")
             return nil
