@@ -36,6 +36,8 @@ APP_VERSION=0.1.3 APP_BUILD_NUMBER=4 zsh scripts/publish-update.sh
 
 目前選擇低成本開發路線，暫不購買 Apple Developer Program，也不進行 Developer ID 簽署及公證。已驗證公開 appcast、更新封存檔與 EdDSA 簽章。2026-09-24 以隔離的 `0.1.0`（build 1）App 完成 Sparkle 更新提示、下載、解壓、安裝、重新啟動至 `0.1.1`（build 2）；新 App 通過 `codesign --verify --deep --strict`。若日後改採 Developer ID，`scripts/notarize-app.sh` 只讀取已存入 Keychain 的 notarytool profile，不在命令列或專案內保存 Apple 密碼。
 
+同日也驗證 `0.1.1` 升級到 `0.1.2`：Sparkle 完成安裝後顯示 Aivue 名稱，build 變為 3，簽章與更新設定仍有效。Sparkle 會保留既有安裝位置的 `.app` 檔名；舊版使用者若要讓 Finder 中的檔案也叫 `Aivue.app`，可在結束 App 後手動改名。新的 `0.1.2` DMG 直接提供 `Aivue.app`。
+
 ## 待人工驗收
 
 - 從 `.app` 啟用開機啟動後，登出／登入，確認只啟動一份。
