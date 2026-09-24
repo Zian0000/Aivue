@@ -2,6 +2,10 @@
 
 這是一個 macOS 狀態列工具，用來顯示 Codex（ChatGPT 方案）與 Claude 的區段用量、總用量及重置時間。
 
+## 下載
+
+目前版本 `0.1.1`：[下載 macOS DMG](https://github.com/Zian0000/Aivue/releases/download/v0.1.1/Aivue-0.1.1.dmg)。支援 macOS 14+ 的 Apple Silicon Mac；此低成本版本未使用 Apple Developer ID 公證。
+
 ## 專案狀態
 
 - 第一階段：資料取得技術驗證 — 95%（核心驗收完成）
