@@ -52,9 +52,15 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--version", required=True)
     parser.add_argument("--dmg", type=Path, required=True)
+    parser.add_argument("--notes-file", type=Path, required=True)
     args = parser.parse_args()
     if not args.dmg.is_file():
         raise RuntimeError(f"找不到 DMG：{args.dmg}")
+    if not args.notes_file.is_file():
+        raise RuntimeError(f"找不到版本更新說明：{args.notes_file}")
+    notes = args.notes_file.read_text(encoding="utf-8").strip()
+    if not notes:
+        raise RuntimeError("版本更新說明不能為空。")
 
     token = github_token()
     tag = f"v{args.version}"
@@ -63,14 +69,14 @@ def main() -> None:
     except RuntimeError as error:
         if "GitHub API 404:" not in str(error):
             raise
-        body = (
-            f"Aivue {args.version}，支援 macOS 14+ 與 Apple Silicon。\n\n"
-            "下載下方 DMG 安裝。此版本使用臨時簽章，未經 Apple Developer ID 公證。"
-            "App 內的 Sparkle 更新會透過 EdDSA 簽章驗證後續版本。"
-        )
         release = request(
             f"{API}/releases", token, method="POST",
-            data=json.dumps({"tag_name": tag, "name": tag, "body": body}).encode(),
+            data=json.dumps({"tag_name": tag, "name": tag, "body": notes}).encode(),
+        )
+    else:
+        release = request(
+            f"{API}/releases/{release['id']}", token, method="PATCH",
+            data=json.dumps({"body": notes}).encode(),
         )
 
     if any(asset["name"] == args.dmg.name for asset in release.get("assets", [])):

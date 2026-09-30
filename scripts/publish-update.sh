@@ -10,6 +10,11 @@ if [[ -z "${APP_VERSION:-}" || -z "${APP_BUILD_NUMBER:-}" ]]; then
   print -u2 '請設定 APP_VERSION 與 APP_BUILD_NUMBER。'
   exit 1
 fi
+notes_file="$project_dir/docs/releases/v$APP_VERSION.md"
+if [[ ! -s "$notes_file" ]]; then
+  print -u2 "請先撰寫版本更新說明：$notes_file"
+  exit 1
+fi
 if ! git -C "$project_dir" show-ref --verify --quiet "refs/tags/v$APP_VERSION"; then
   print -u2 "請先提交原始碼並建立 v$APP_VERSION 標籤。"
   exit 1
@@ -62,5 +67,6 @@ ditto -c -k --sequesterRsrc --keepParent "$app_dir" "$archive"
 git -C "$pages_dir" add -A
 git -C "$pages_dir" commit -m "Publish Aivue $APP_VERSION ($APP_BUILD_NUMBER)"
 git -C "$pages_dir" push origin gh-pages
-python3 "$project_dir/scripts/publish-github-release.py" --version "$APP_VERSION" --dmg "$dmg"
+python3 "$project_dir/scripts/publish-github-release.py" \
+  --version "$APP_VERSION" --dmg "$dmg" --notes-file "$notes_file"
 print "更新已發布：$feed_base/appcast.xml"
