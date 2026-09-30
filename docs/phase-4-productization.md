@@ -27,8 +27,8 @@ APP_VERSION=0.1.3 APP_BUILD_NUMBER=4 zsh scripts/publish-update.sh
 
 ## 自動更新發布
 
-- GitHub Pages 更新清單：[appcast.xml](https://zian0000.github.io/Aivue/appcast.xml)。Sparkle 目前使用的 `0.1.2` 更新封存檔：[Aivue-0.1.2.zip](https://zian0000.github.io/Aivue/Aivue-0.1.2.zip)。Pages 使用公開儲存庫的 `gh-pages` 分支。
-- 一般下載安裝請使用 [v0.1.2 Release 的 DMG](https://github.com/Zian0000/Aivue/releases/download/v0.1.2/Aivue-0.1.2.dmg)；GitHub 在標籤頁自動提供的 Source code ZIP/TAR 是原始碼，不是 App 安裝檔。
+- GitHub Pages 更新清單：[appcast.xml](https://zian0000.github.io/Aivue/appcast.xml)。Sparkle 目前使用的 `0.1.3` 更新封存檔：[Aivue-0.1.3.zip](https://zian0000.github.io/Aivue/Aivue-0.1.3.zip)。Pages 使用公開儲存庫的 `gh-pages` 分支。
+- 一般下載安裝請使用 [v0.1.3 Release 的 DMG](https://github.com/Zian0000/Aivue/releases/download/v0.1.3/Aivue-0.1.3.dmg)；GitHub 在標籤頁自動提供的 Source code ZIP/TAR 是原始碼，不是 App 安裝檔。
 - 更新簽章使用登入鑰匙圈中的 Sparkle 帳戶 `aivue`。私鑰不能加入 Git；應另外安全備份。失去私鑰會影響未來更新的簽章。
 - `scripts/publish-update.sh` 以 `APP_VERSION` 與遞增的 `APP_BUILD_NUMBER` 打包、簽署更新封存檔與 appcast，推送到 `gh-pages`，並將同版本 DMG 加入 GitHub Release。先提交原始碼並建立 `v版本號` 標籤。此腳本需要 `dist/gh-pages` 工作目錄；新複製的專案可先執行 `git fetch origin gh-pages && git worktree add -b gh-pages dist/gh-pages origin/gh-pages`。若 Pages 推送成功但 Release 上傳失敗，可用 `python3 scripts/publish-github-release.py --version 版本號 --dmg dist/Aivue-版本號.dmg` 重試。
 - 最初已安裝但沒有 `SUFeedURL` 與 `SUPublicEDKey` 的舊 App 無法自行升級，須手動安裝一次帶更新設定的版本。之後才會從上述更新清單檢查新版。

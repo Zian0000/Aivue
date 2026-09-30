@@ -6,7 +6,7 @@
 
 ## 安裝與更新
 
-目前版本 `0.1.2`：[下載 macOS DMG](https://github.com/Zian0000/Aivue/releases/download/v0.1.2/Aivue-0.1.2.dmg)。打開 DMG 後，將 `Aivue.app` 複製到「應用程式」資料夾。支援 macOS 14 以上的 Apple Silicon Mac。
+目前版本 `0.1.3`：[下載 macOS DMG](https://github.com/Zian0000/Aivue/releases/download/v0.1.3/Aivue-0.1.3.dmg)。打開 DMG 後，將 `Aivue.app` 複製到「應用程式」資料夾。支援 macOS 14 以上的 Apple Silicon Mac。
 
 App 已接上 Sparkle 自動更新；從 `0.1.1` 升級到 `0.1.2` 的下載、安裝與重新啟動流程已驗證。目前版本採免費的臨時簽章，未使用 Apple Developer ID 公證。
 

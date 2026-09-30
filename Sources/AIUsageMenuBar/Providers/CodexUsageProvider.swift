@@ -23,8 +23,11 @@ struct CodexUsageProvider: UsageProviding {
             return executableURL
         }
 
+        if let bundled = Self.findBundledCodex() {
+            return bundled
+        }
+
         let candidates = [
-            "/Applications/ChatGPT.app/Contents/Resources/codex",
             "/opt/homebrew/bin/codex",
             "/usr/local/bin/codex"
         ]
@@ -34,6 +37,46 @@ struct CodexUsageProvider: UsageProviding {
         }
 
         throw UsageProviderError.codexNotFound
+    }
+
+    static func findBundledCodex(
+        appURL: URL = URL(fileURLWithPath: "/Applications/ChatGPT.app")
+    ) -> URL? {
+        let resources = appURL.appendingPathComponent("Contents/Resources", isDirectory: true)
+        let knownPaths = [
+            "codex",
+            "codex-cli/CodexCLI.app/Contents/MacOS/codex",
+            "codex-cli/bin/codex"
+        ]
+        let fileManager = FileManager.default
+
+        for path in knownPaths {
+            let candidate = resources.appendingPathComponent(path)
+            if fileManager.isExecutableFile(atPath: candidate.path) {
+                return candidate
+            }
+        }
+
+        guard let contents = fileManager.enumerator(
+            at: resources,
+            includingPropertiesForKeys: [.isRegularFileKey],
+            options: [.skipsHiddenFiles]
+        ) else { return nil }
+
+        for case let candidate as URL in contents {
+            let depth = candidate.pathComponents.count - resources.pathComponents.count
+            if depth > 6 {
+                contents.skipDescendants()
+                continue
+            }
+            guard candidate.lastPathComponent == "codex",
+                  (try? candidate.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile) == true,
+                  fileManager.isExecutableFile(atPath: candidate.path)
+            else { continue }
+            return candidate
+        }
+
+        return nil
     }
 
     private static func runQuery(executable: URL, timeout: TimeInterval) throws -> UsageSnapshot {
